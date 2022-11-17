@@ -1,0 +1,5 @@
+#sample webesite
+https://backfire.tv/blog/
+
+#command to start the sql service before using sql work bench
+sudo service mysqld start
