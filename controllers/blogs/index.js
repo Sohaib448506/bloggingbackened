@@ -1,12 +1,15 @@
 const connection = require("../../db");
 
 const getAllblogs = (req, res) => {
-  connection.query(`SELECT * FROM blogs`, (err, result, field) => {
-    if (err) return res.status(400).send(err);
-    else {
-      return res.status(201).send({ success: true, response: result });
+  connection.query(
+    `SELECT * , CONVERT(mainBlog USING utf8) AS mainBlog FROM blogs`,
+    (err, result, field) => {
+      if (err) return res.status(400).send(err);
+      else {
+        return res.status(201).send({ success: true, response: result });
+      }
     }
-  });
+  );
 };
 
 const singleBlog = (req, res) => {
@@ -15,7 +18,7 @@ const singleBlog = (req, res) => {
     return res.status(500).send("Blog Id is required");
   }
   connection.query(
-    `SELECT * FROM blogs where id=${id};`,
+    `SELECT *, CONVERT(mainBlog USING utf8) AS mainBlog FROM blogs where id=${id} ;`,
     (err, result, field) => {
       if (err) return res.status(400).send(err);
       else {
@@ -28,11 +31,11 @@ const singleBlog = (req, res) => {
 const publishBlog = (req, res) => {
   // console.log(req);
   const data = req.body;
-  const imageUrl = JSON.stringify(req?.file?.path);
-  const category = JSON.stringify(data?.category);
-  const title = JSON.stringify(data?.title);
+  const imageUrl = req?.file?.path;
+  const category = data?.category;
+  const title = data?.title;
   const textDisplay = JSON.stringify(data?.textDisplay);
-  const mainBlog = JSON.stringify(data?.mainBlog);
+  const mainBlog = data?.mainBlog;
   if (!imageUrl || !category || !title || !textDisplay || !mainBlog) {
     return res
       .status(500)
@@ -55,11 +58,11 @@ const updateBlog = (req, res) => {
   console.log(req);
   const data = req.body;
   const id = req.query.id;
-  const imageUrl = JSON.stringify(req?.file?.path);
-  const category = JSON.stringify(data?.category);
-  const title = JSON.stringify(data?.title);
-  const textDisplay = JSON.stringify(data?.textDisplay);
-  const mainBlog = JSON.stringify(data?.mainBlog);
+  const imageUrl = req?.file?.path;
+  const category = data?.category;
+  const title = data?.title;
+  const textDisplay = data?.textDisplay;
+  const mainBlog = data?.mainBlog;
   if (!imageUrl || !category || !title || !textDisplay || !mainBlog) {
     return res
       .status(500)
