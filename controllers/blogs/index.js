@@ -29,13 +29,12 @@ const singleBlog = (req, res) => {
 };
 
 const publishBlog = (req, res) => {
-  console.log(req.file);
   const data = req.body;
-  const imageUrl = req?.file?.path;
-  const category = data?.category;
-  const title = data?.title;
-  const textDisplay = data?.textDisplay;
-  const mainBlog = data?.mainBlog;
+  const imageUrl = JSON.stringify(req?.file?.path);
+  const category = JSON.stringify(data?.category);
+  const title = JSON.stringify(data?.title);
+  const textDisplay = JSON.stringify(data?.textDisplay);
+  const mainBlog = JSON.stringify(data?.mainBlog);
   if (!imageUrl || !category || !title || !textDisplay || !mainBlog) {
     return res
       .status(500)
@@ -55,14 +54,13 @@ const publishBlog = (req, res) => {
 };
 
 const updateBlog = (req, res) => {
-  console.log(req);
   const data = req.body;
   const id = req.query.id;
-  const imageUrl = req?.file?.path;
-  const category = data?.category;
-  const title = data?.title;
-  const textDisplay = data?.textDisplay;
-  const mainBlog = data?.mainBlog;
+  const imageUrl = JSON.stringify(req?.file?.path);
+  const category = JSON.stringify(data?.category);
+  const title = JSON.stringify(data?.title);
+  const textDisplay = JSON.stringify(data?.textDisplay);
+  const mainBlog = JSON.stringify(data?.mainBlog);
   if (!imageUrl || !category || !title || !textDisplay || !mainBlog) {
     return res
       .status(500)
