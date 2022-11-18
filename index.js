@@ -11,6 +11,7 @@ app.get("/api/system-status", (req, res) => {
 
 //for automateing calling seeds
 // app.use(require("./seed.js"));
+app.use(express.static("fileStore"));
 
 app.use("/api", require("./routes"));
 

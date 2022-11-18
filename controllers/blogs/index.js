@@ -29,12 +29,12 @@ const singleBlog = (req, res) => {
 };
 
 const publishBlog = (req, res) => {
-  // console.log(req);
+  console.log(req.file);
   const data = req.body;
   const imageUrl = req?.file?.path;
   const category = data?.category;
   const title = data?.title;
-  const textDisplay = JSON.stringify(data?.textDisplay);
+  const textDisplay = data?.textDisplay;
   const mainBlog = data?.mainBlog;
   if (!imageUrl || !category || !title || !textDisplay || !mainBlog) {
     return res
@@ -98,10 +98,17 @@ const deleteBlog = (req, res) => {
   );
 };
 
+function uploadFiles(req, res) {
+  res
+    .status(201)
+    .send({ message: "Successfully uploaded files", data: req.files });
+}
+
 module.exports = {
   getAllblogs,
   singleBlog,
   publishBlog,
   updateBlog,
   deleteBlog,
+  uploadFiles,
 };
